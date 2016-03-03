@@ -4,6 +4,18 @@ angular.module('app.services.firebaseAuth', [])
 
 .constant('FIREBASE_URL', 'https://bootcampchat.firebaseio.com/')
 
+.factory('AuthException', function () {
+
+        function AuthException(message) {
+            this.name = 'AuthException';
+            this.message = message;
+        }
+        AuthException.prototype = new Error();
+        AuthException.prototype.constructor = AuthException;
+        
+        return AuthException;
+})
+
 .factory('Auth', ['$firebaseAuth', 'FIREBASE_URL',
 	function($firebaseAuth, FIREBASE_URL) {
 		var ref = new Firebase(FIREBASE_URL);
@@ -82,9 +94,13 @@ function (Auth, $q, FIREBASE_URL) {
 				num_incorrect:0
 		};
 	}
+    
+    function isAuthed() {
+        return Auth.$getAuth() !== null;
+    }
 
 	function signIn() {
-		if (!Auth.$getAuth()) {
+		if (!isAuthed()) {
 			if (!hasLoggedInBefore()) {
 				return createUserAndSignIn();
 			} else {
@@ -100,7 +116,8 @@ function (Auth, $q, FIREBASE_URL) {
 	}
 
     function getAuth() {
-        if (Auth.$getAuth()) {
+        if (isAuthed()) {
+            
             $q.when(Auth.$getAuth());
             
         } else {
@@ -110,7 +127,8 @@ function (Auth, $q, FIREBASE_URL) {
 
 	return {
 		getAuth: getAuth,
-		signIn: signIn
+		signIn: signIn,
+        isAuthed: isAuthed
 	}
 }])
 
