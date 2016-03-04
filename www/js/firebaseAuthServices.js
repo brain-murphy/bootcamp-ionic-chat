@@ -1,6 +1,6 @@
 /* global angular, Firebase */
 
-angular.module('app.services.firebaseAuth', [])
+angular.module('app.services.firebaseAuth', ['firebase'])
 
 .constant('FIREBASE_URL', 'https://bootcampchat.firebaseio.com/')
 
@@ -118,7 +118,7 @@ function (Auth, $q, FIREBASE_URL) {
     function getAuth() {
         if (isAuthed()) {
             
-            $q.when(Auth.$getAuth());
+        return $q.when(Auth.$getAuth());
             
         } else {
             return signIn();

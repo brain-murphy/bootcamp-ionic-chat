@@ -1,4 +1,4 @@
-angular.module('app.routes', [])
+angular.module('app.routes', ['app.services.firebaseAuth'])
     
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -12,7 +12,15 @@ angular.module('app.routes', [])
     .state('tab', {
         url: '/tab',
         abstract: true,
-        templateUrl: 'templates/tabs.html'
+        templateUrl: 'templates/tabs.html',
+        resolve: {
+            auth: ['AuthManager', function (AuthManager) {
+                return AuthManager.getAuth()
+                    .then(function (auth) {
+                       console.log('authed'); 
+                    });
+            }]
+        }
     })
 
     .state('tab.chats', {

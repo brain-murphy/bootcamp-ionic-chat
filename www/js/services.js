@@ -1,6 +1,6 @@
 /* global angular */
 
-angular.module('app.services', ['app.services.firebaseAuth'])
+angular.module('app.services', ['firebase', 'app.services.firebaseAuth'])
 
 .constant('MESSAGE_LIMIT', 50)
 
@@ -37,21 +37,42 @@ angular.module('app.services', ['app.services.firebaseAuth'])
     }
 ])
 
-.factory('AddMessage', ['AuthManager', 'MessagesFirebaseArray', 
-    function (AuthManager, MessagesFirebaseArray) {
+.factory('AddMessage', ['AuthManager', 'MessagesFirebaseArray', '$q',
+    function (AuthManager, MessagesFirebaseArray, $q) {
+        var uid;
         
         function makeMessage (messageText) {
             return {
                 message: messageText,
-                user: AuthManager.getAuth().uid,
+                user: uid,
                 timestamp: Firebase.ServerValue.TIMESTAMP
             }
         }
         
-        function addMessage (messageText) {
-            var message = makeMessage(messageText);
+        function getAuthIfNeeded() {
+            if (uid) {
+                return $q.when(uid);
+            } else {
+                return AuthManager.getAuth()
+                    .then(setUid);
+            }
+        }
+        
+        function setUid(authData) {
+            uid = authData.uid;
+            return uid;
+        }
+        
+        function addMessage (messageText) { 
+            return getAuthIfNeeded()
             
-            return MessagesFirebaseArray.$add(message);
+                .then(function () {
+                    return makeMessage(messageText);
+                })
+                
+                .then(function (message){
+                    return MessagesFirebaseArray.$add(message);
+                })
         }
         
         return addMessage;
