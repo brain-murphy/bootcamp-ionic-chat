@@ -77,4 +77,38 @@ angular.module('app.services', ['firebase', 'app.services.firebaseAuth'])
         
         return addMessage;
     }
+])
+
+.factory('MockMessages', ['MESSAGE_LIMIT', 
+    function (MESSAGE_LIMIT) {
+        var words = ['hey', 'lol', 'jk', 'rofl', 'k', 'wasup', 'wat', 'u', 'lel', 'brb','btw', 'wtf'];
+        
+        function generateRandomMessageText() {
+            var messageText = '';
+            
+            do { // on average, message consists of ten words
+                var randomIndex = Math.floor(Math.random() * words.length)
+                
+                messageText += words[randomIndex] + ' '
+            } while (Math.random() > .1);
+            
+            return messageText;
+        }
+        
+        function generateMessage() {
+            return {
+                    message: generateRandomMessageText(),
+                    user: "mock uid",
+                    timestamp: Date.now()
+                }
+        }
+        
+        var messages = []
+        
+        for (var i = 0; i < MESSAGE_LIMIT; i++) {
+            messages.push(generateMessage());
+        }
+        
+        return messages;
+    }
 ]);

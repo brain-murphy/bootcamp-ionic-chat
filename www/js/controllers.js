@@ -1,13 +1,13 @@
 angular.module('starter.controllers', ['app.services'])
 
-.controller('ChatsCtrl', ['$scope', 'MessagesFirebaseArray', 'AddMessage',
-    function($scope, MessagesFirebaseArray, AddMessage) {
+.controller('ChatsCtrl', ['$scope', 'MessagesFirebaseArray', 'AddMessage', 'MockMessages',
+    function($scope, MessagesFirebaseArray, AddMessage, MockMessages) {
         // With the new view caching in Ionic, Controllers are only called
         // when they are recreated or on app start, instead of every page change.
         // To listen for when this page is active (for example, to refresh data),
         // listen for the $ionicView.enter event:
         
-        $scope.messages = MessagesFirebaseArray;
+        $scope.messages = MockMessages;
         
         $scope.addMessage = AddMessage;
         
