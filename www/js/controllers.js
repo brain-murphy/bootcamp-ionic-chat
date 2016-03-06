@@ -1,22 +1,22 @@
 angular.module('starter.controllers', ['app.services'])
 
-.controller('ChatsCtrl', ['$scope', 'MessagesFirebaseArray', 'AddMessage', 'MockMessages',
-    function($scope, MessagesFirebaseArray, AddMessage, MockMessages) {
-        // With the new view caching in Ionic, Controllers are only called
-        // when they are recreated or on app start, instead of every page change.
-        // To listen for when this page is active (for example, to refresh data),
-        // listen for the $ionicView.enter event:
+.controller('ChatsCtrl', ['$scope','MockMessages',
+    function($scope, MockMessages) {
         
         $scope.messages = MockMessages;
         
-        $scope.addMessage = AddMessage;
+        $scope.addMessage = function (message) {
+            MockMessages.push({
+                    message: message,
+                    user: "mock uid",
+                    timestamp: Date.now()
+                });    
+        }
         
         $scope.getColor = function (message) {
             
         }
         
-        $scope.$on('$ionicView.enter', function(e) {
-        });
     }
 ])
 
