@@ -12,11 +12,6 @@ angular.module('starter.controllers', ['app.services'])
                     timestamp: Date.now()
                 });    
         }
-        
-        $scope.getColor = function (message) {
-            
-        }
-        
     }
 ])
 
