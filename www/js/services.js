@@ -1,32 +1,27 @@
 /* global angular */
 
-angular.module('app.services', ['firebase', 'app.services.firebaseAuth'])
+angular.module('app.services', ['firebase'])
 
+/* 
+    The maximum amount of messages that will be loaded into the message feed
+*/
 .constant('MESSAGE_LIMIT', 50)
 
-.factory('MessagesFirebaseRef', ['FIREBASE_URL', 'AuthManager', 'AuthException',
-    function (FIREBASE_URL, AuthManager, AuthException) {
-        
-        function getMessagesFirebaseRef() {
-            return new Firebase(FIREBASE_URL + 'messages/'); 
-        }
-        
-        if (AuthManager.isAuthed()) {
-            return getMessagesFirebaseRef();
-        } else {
-            throw new AuthException('messages not accessible if user not authenticated');
-        }
-        
-    }
-])
+/*
+    Create a factory that we can use to get a Firebase pointing to our /messages.
+*/
+
+
+
 
 .factory('MessagesFirebaseArray', ['$firebaseArray', 'MessagesFirebaseRef', 'MESSAGE_LIMIT',
     function ($firebaseArray, MessagesFirebaseRef, MESSAGE_LIMIT) {
        
         function getMostRecentMessages() {
-            return MessagesFirebaseRef
-                .orderByChild("timestamp")
-                .limitToLast(MESSAGE_LIMIT);
+            /*
+                Use the Firebase API so that MessagesFirebaseRef will return 
+                MESSAGE_LIMIT number of the most recent messages.
+            */
         }
         
         function getMessagesFirebaseArray() {
@@ -42,14 +37,6 @@ angular.module('app.services', ['firebase', 'app.services.firebaseAuth'])
         
         var uid;
         
-        function makeMessage (messageText) {
-            return {
-                message: messageText,
-                user: uid,
-                timestamp: Firebase.ServerValue.TIMESTAMP
-            }
-        }
-        
         function getUid() {
             if (uid) {
                 return $q.when(uid);
@@ -64,16 +51,21 @@ angular.module('app.services', ['firebase', 'app.services.firebaseAuth'])
             return uid;
         }
         
+        function makeMessage (messageText) {
+            return {
+                message: messageText,
+                user: uid,
+                timestamp: Firebase.ServerValue.TIMESTAMP
+            }
+        }
+        
+        /*
+            As you can see, we'll be returning this function for use by the controllers.
+            The function will have to put a message with the specified text in the 
+            firebase database. You will have to leverage the Promise ($q) API
+        */
         function addMessage (messageText) { 
-            return getUid()
             
-                .then(function () {
-                    return makeMessage(messageText);
-                })
-                
-                .then(function (message){
-                    return MessagesFirebaseArray.$add(message);
-                })
         }
         
         return addMessage;
