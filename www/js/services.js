@@ -5,13 +5,14 @@ angular.module('app.services', ['firebase']);
 /*
     The maximum amount of messages that will be loaded into the message feed
 */
-angular.module('app.services').constant('MESSAGE_LIMIT', 50)
+angular.module('app.services').constant('MESSAGE_LIMIT', 50);
 
 /*
     Create a factory that we can use to get a Firebase pointing to our /messages.
 */
 
-angular.module('app.services').factory('MessagesFirebaseArray', ['$firebaseArray', 'MessagesFirebaseRef', 'MESSAGE_LIMIT',
+angular.module('app.services').factory('MessagesFirebaseArray', [
+  '$firebaseArray', 'MessagesFirebaseRef', 'MESSAGE_LIMIT',
   function($firebaseArray, MessagesFirebaseRef, MESSAGE_LIMIT) {
 
     function getMostRecentMessages() {
