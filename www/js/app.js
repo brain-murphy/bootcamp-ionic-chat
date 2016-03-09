@@ -1,9 +1,8 @@
 /* global angular, cordova, StatusBar */
 
+angular.module('app', ['ionic', 'app.routes', 'starter.controllers', 'app.services.firebaseAuth']);
 
-angular.module('app', ['ionic', 'app.routes', 'starter.controllers', 'app.services.firebaseAuth'])
-
-.run(function($ionicPlatform) {
+angular.module('app').run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -17,10 +16,10 @@ angular.module('app', ['ionic', 'app.routes', 'starter.controllers', 'app.servic
       StatusBar.styleDefault();
     }
   });
-})
+});
 
-.config(['$ionicConfigProvider',
-    function ($ionicConfigProvider) {
-        $ionicConfigProvider.tabs.position('bottom');
-    }
-])
+angular.module('app').config(['$ionicConfigProvider',
+  function($ionicConfigProvider) {
+    $ionicConfigProvider.tabs.position('bottom');
+  }
+]);
