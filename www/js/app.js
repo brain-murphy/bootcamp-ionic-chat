@@ -1,5 +1,7 @@
 /* global angular, cordova, StatusBar */
 
+angular.module('bootcamp', []);
+
 angular.module('app', ['ionic', 'app.routes', 'starter.controllers', 'app.services.firebaseAuth']);
 
 angular.module('app').run(function($ionicPlatform) {

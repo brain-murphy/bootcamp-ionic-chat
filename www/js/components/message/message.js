@@ -1,7 +1,5 @@
 'use strict';
 
-angular.module('bootcamp', []);
-
 angular.module('bootcamp').directive('bcMessage', function() {
   return {
     restrict: 'E',

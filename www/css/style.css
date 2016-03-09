@@ -32,3 +32,8 @@
   border-radius: 15px;
   margin-bottom: 10px;
 }
+
+.bcMessageShuttle {
+  display: flex;
+  width: 100%;
+}

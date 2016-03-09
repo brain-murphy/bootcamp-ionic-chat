@@ -4,11 +4,7 @@
     <bc-message>Wait, what do you mean this is hard-coded?</bc-message>
     <bc-message>I mean that the text for these messages is written in the html file, not in the Firebase database, or even in a mock database.</bc-message>
   </ion-content>
-
-  <ion-footer-bar style="display: flex;">
-    <input type="text" placeholder="Write a message..." ng-model="message.text" style="flex-grow: 1;">
-    <button class="button button-clear button-positive">
-      <i class="icon ion-android-send"></i>
-    </button>
+  <ion-footer-bar>
+    <bc-message-shuttle></bc-message-shuttle>
   </ion-footer-bar>
 </ion-view>
