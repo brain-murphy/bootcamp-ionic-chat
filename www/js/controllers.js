@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['app.services']);
+angular.module('starter.controllers', ['app.services', 'bootcamp']);
 
 angular.module('starter.controllers').controller('ChatsCtrl', ['$scope', 'MockMessages',
   function($scope, MockMessages) {

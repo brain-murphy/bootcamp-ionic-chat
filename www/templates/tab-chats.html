@@ -1,63 +1,14 @@
-<ion-view view-title="Chat">
-  <ion-content class="chatMessages">
-    <ion-list>
-      <div class="item item-body">
-
-        <div class="list card partnerMessage">
-          <div class="item item-body">
-            <div>
-              <p>This is a fake message, hard-coded directly into the html</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="list card myMessage">
-          <div class="item item-body">
-            <div>
-              <p>What do you mean, "hard-coded"?</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="list card partnerMessage">
-          <div class="item item-body">
-            <div>
-              <p>I mean that the text for these messages is written in the html file, not in the Firebase database, or even in a mock database.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="list card myMessage">
-          <div class="item item-body">
-            <div>
-              <p>So the javascipt isn't updating it? It's just written into /www/templates/tab-chats.html ?
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="list card partnerMessage">
-          <div class="item item-body">
-            <div>
-              <p>Word</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </ion-list>
+<ion-view view-title="Chatterbox">
+  <ion-content padding="true" class="chatMessages">
+    <bc-message>This is a fake message, hard-coded directly into the html</bc-message>
+    <bc-message>Wait, what do you mean this is hard-coded?</bc-message>
+    <bc-message>I mean that the text for these messages is written in the html file, not in the Firebase database, or even in a mock database.</bc-message>
   </ion-content>
 
-  <div class="chatFooter">
-    <form>
-      <label class="item item-input">
-        <span class="input-label">Message</span>
-        <textarea ng-model="newMessageText" placeholder="hello"></textarea>
-      </label>
-    </form>
-    <form class="list">
-      <button ng-click="" class="button button-positive button-block ">Send</button>
-    </form>
-  </div>
+  <ion-footer-bar style="display: flex;">
+    <input type="text" placeholder="Write a message..." ng-model="message.text" style="flex-grow: 1;">
+    <button class="button button-clear button-positive">
+      <i class="icon ion-android-send"></i>
+    </button>
+  </ion-footer-bar>
 </ion-view>

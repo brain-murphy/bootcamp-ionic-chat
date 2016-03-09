@@ -22,3 +22,13 @@
   background-color: #33cd5f;
   padding: 3px;
 }
+
+
+/* BC Message */
+.bcMessage {
+  color: white;
+  padding: 10px;
+  background-color: #0084ff;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
